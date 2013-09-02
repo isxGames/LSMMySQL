@@ -1,0 +1,17 @@
+
+# /
+/*.sdf
+/*.suo
+/*.user
+/Release
+/Debug
+/ipch
+
+# /Bin/Release/
+/Bin/Release/*.exp
+/Bin/Release/*.lastbuildstate
+/Bin/Release/*.log
+/Bin/Release/*.manifest
+/Bin/Release/*.obj
+/Bin/Release/*.tlog
+/Bin/Release/vc100.pdb
