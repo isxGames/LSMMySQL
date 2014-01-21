@@ -35,6 +35,9 @@
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Program Files\InnerSpace\LSModule\include;$(ProjectDir)\mysql-connector-c-6.1.3-win32\include;$(IncludePath)</IncludePath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Program Files\InnerSpace\LSModule\lib\vs10;$(ProjectDir)\mysql-connector-c-6.1.3-win32\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -48,6 +51,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnablePREfast>true</EnablePREfast>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)LSMMySQL.dll</OutputFile>

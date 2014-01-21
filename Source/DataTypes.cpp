@@ -48,16 +48,16 @@ bool LSMySQLType::GetMethod(LSOBJECTDATA &ObjectData, PLSTYPEMETHOD pMethod, int
 			char *pass=argv[2];
 			char *db=argv[3];
 			unsigned int port=argc>=5?atoi(argv[4]):0;
-			char *unix_socket=0;
-			unsigned int flags=0;
-			return mysql_real_connect(pMySQL,host,user,pass,db,port,unix_socket,flags)!=0;
+			char *unix_socket = nullptr;
+			unsigned int flags = 0;
+			return mysql_real_connect(pMySQL,host,user,pass,db,port,unix_socket,flags) != nullptr;
 		}
 	case Ping:
 		return mysql_ping(pMySQL)==0;
 	case Query:
 		if (argc)
 		{
-			CMySQLResult *pResult=0;
+			CMySQLResult *pResult = nullptr;
 			if (argc>1)
 			{
 				// grab result object
@@ -131,57 +131,61 @@ bool LSMySQLType::FromText(LSOBJECTDATA &ObjectData, int argc, char *argv[])
 #undef pMySQL
 
 
+// Reset the cached data from any previous results
 void CMySQLResult::Clear()
 {
-	Res=0;
-	nRows=0;
-	Row=0;
-	nFields=0;
+	Res = nullptr;
+	nRows = 0;
+	Row = nullptr;
+	nFields = 0;
 	FieldNames.clear();
 }
 
 static inline bool IsNumber(const char *String)
 {
-	if (*String==0)
-		return false;
+	if (*String==0) return false;
 	while(*String)
 	{
-		if (!((*String>='0' && *String<='9') || *String=='.'))
+		if (!((*String >= '0' && *String <= '9') || *String == '.'))
+		{
 			return false;
+		}
 		++String;
 	}
 	return true;
 }
 void CMySQLResult::InitializeResult(MYSQL_RES *p_Res)
 {
-	if (Res)
-	{
-		Clear();
-	}
-	Res=p_Res;
-	nRows=(unsigned int)mysql_num_rows(Res);
-	nFields=mysql_num_fields(Res);
+	if (Res) Clear();
 
-	// get field names
-	MYSQL_FIELD *fields=mysql_fetch_fields(Res);
-	for(unsigned int i = 0; i < nFields; i++)
+	if (p_Res != nullptr)
 	{
-		FieldNames[fields[i].name]=i;
+		Res = p_Res;
+		nRows = (unsigned int)mysql_num_rows(Res);
+		nFields = mysql_num_fields(Res);
+
+		// get field names
+		MYSQL_FIELD *fields = mysql_fetch_fields(Res);
+		for (unsigned int i = 0; i < nFields; i++)
+		{
+			FieldNames[fields[i].name] = i;
+		}
 	}
 }
 
 char *CMySQLResult::GetFieldByText(const char *Text)
 {
-	if (!Row)
-		return 0;
+	if (!Row || !Text || !strlen(Text))
+		return nullptr;
+
 	char *Field=GetFieldByName(Text);
-	if (Field)
-		return Field;
-	if (!IsNumber(Text))
-		return 0;
+	if (Field) return Field;
+
+	// Wasn't a field name, check to see if it's a field index.
+	if (!IsNumber(Text)) return nullptr;
+
 	unsigned int nField=atoi(Text)-1; // 1-base to 0-base conversion
-	if (nField>=nFields)
-		return 0; // out of range
+	if (nField>=nFields) return nullptr; // out of range
 	return Row[nField];
 }
 
@@ -256,7 +260,7 @@ bool LSMySQLResultType::GetMethod(LSOBJECTDATA &ObjectData, PLSTYPEMETHOD pMetho
 		{
 			((CMySQLResult*)ObjectData.Ptr)->Row=mysql_fetch_row(((CMySQLResult*)ObjectData.Ptr)->Res);
 
-			return ((CMySQLResult*)ObjectData.Ptr)->Row!=0;
+			return ((CMySQLResult*)ObjectData.Ptr)->Row != nullptr;
 		}
 		return false;
 	}
