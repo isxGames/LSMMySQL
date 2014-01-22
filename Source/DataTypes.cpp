@@ -41,17 +41,21 @@ bool LSMySQLType::GetMethod(LSOBJECTDATA &ObjectData, PLSTYPEMETHOD pMethod, int
 	switch(pMethod->ID)
 	{
 	case Connect:
-		if (argc>=4)
+	{
+		if (argc < 4)
 		{
-			char *host=argv[0];
-			char *user=argv[1];
-			char *pass=argv[2];
-			char *db=argv[3];
-			unsigned int port=argc>=5?atoi(argv[4]):0;
-			char *unix_socket = nullptr;
-			unsigned int flags = 0;
-			return mysql_real_connect(pMySQL,host,user,pass,db,port,unix_socket,flags) != nullptr;
+			printf("mysql:Connect: Invalid parameters");
+			return false;
 		}
+		char *host = argv[0];
+		char *user = argv[1];
+		char *pass = argv[2];
+		char *db = argv[3];
+		unsigned int port = argc >= 5 ? atoi(argv[4]) : 0;
+		char *unix_socket = nullptr;
+		unsigned int flags = 0;
+		return mysql_real_connect(pMySQL, host, user, pass, db, port, unix_socket, flags) != nullptr;
+	}
 	case Ping:
 		return mysql_ping(pMySQL)==0;
 	case Query:

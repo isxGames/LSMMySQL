@@ -10,7 +10,6 @@ public:
 	enum LSMySQLTypeMembers
 	{
 		Connected,
-
 		AffectedRows,
 		InsertID,
 		LastError,
@@ -20,7 +19,6 @@ public:
 	{
 		Connect,
 		Ping,
-
 		Query,
 	};
 
@@ -28,11 +26,13 @@ public:
 	{
 		// Use the TypeMember macro to activate each member, or use AddMember
 		TypeMember(Connected);
+		TypeMember(AffectedRows);
+		TypeMember(InsertID);
+		TypeMember(LastError);
 
 		// Use the TypeMethod macro to activate each member, or use AddMethod
 		TypeMethod(Connect);
 		TypeMethod(Ping);
-
 		TypeMethod(Query);
 	}
 
@@ -105,14 +105,15 @@ public:
 		TypeMember(Valid);
 		TypeMember(ValidRow);
 
+		TypeMember(Fields);
+		TypeMember(Rows);
+
 		TypeMember(GetString);
 		TypeMember(GetInt);
 		TypeMember(GetFloat);
 
-		TypeMember(Fields);
-		TypeMember(Rows);
-
 		TypeMethod(FetchRow);
+		TypeMethod(Clear);
 	}
 
 	virtual bool GetMember(LSOBJECTDATA ObjectData, PLSTYPEMEMBER pMember, int argc, char *argv[], LSOBJECT &Object);
