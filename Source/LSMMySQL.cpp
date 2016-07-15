@@ -17,19 +17,19 @@ LSModulePreSetup("MySQL",LSMMySQL);
 
 // Basic LavishScript datatypes, these get retrieved on startup by our initialize function, so we can
 // use them in our Top-Level Objects or custom datatypes
-LSType *pStringType=0;
-LSType *pIntType=0;
-LSType *pUintType=0;
-LSType *pBoolType=0;
-LSType *pFloatType=0;
-LSType *pTimeType=0;
-LSType *pByteType=0;
-LSType *pIntPtrType=0;
-LSType *pBoolPtrType=0;
-LSType *pFloatPtrType=0;
-LSType *pBytePtrType=0;
+LSType *pStringType = nullptr;
+LSType *pIntType = nullptr;
+LSType *pUintType = nullptr;
+LSType *pBoolType = nullptr;
+LSType *pFloatType = nullptr;
+LSType *pTimeType = nullptr;
+LSType *pByteType = nullptr;
+LSType *pIntPtrType = nullptr;
+LSType *pBoolPtrType = nullptr;
+LSType *pFloatPtrType = nullptr;
+LSType *pBytePtrType = nullptr;
 
-LSInterface *pLSInterface=0;
+LSInterface *pLSInterface = nullptr;
 
 #include "Commands.h"
 #include "TopLevelObjects.h"

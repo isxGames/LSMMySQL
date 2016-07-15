@@ -15,3 +15,12 @@
 /Bin/Release/*.obj
 /Bin/Release/*.tlog
 /Bin/Release/vc100.pdb
+/.HistoryData
+
+/Bin/Release/LSMMySQL.dll.lastcodeanalysissucceeded
+/Bin/Release/commands.nativecodeanalysis.xml
+/Bin/Release/datatypes.nativecodeanalysis.xml
+/Bin/Release/lsmmysql.nativecodeanalysis.xml
+/Bin/Release/toplevelobjects.nativecodeanalysis.xml
+/Bin/Release/vc.nativecodeanalysis.all.xml
+/Bin/Release/vc120.pdb

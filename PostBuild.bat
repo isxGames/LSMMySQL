@@ -23,6 +23,8 @@ if "%InnerSpacePath:~-15%" == "\InnerSpace.exe" set InnerSpacePath=%InnerSpacePa
 :COPY_BINARY
 	echo PostBuild: Copying %TARGETFILENAME% to "%InnerSpacePath%\LavishScript Modules\%TARGETFILENAME%"
 	copy /Y "%TARGETDIR%\%TARGETFILENAME%" "%InnerSpacePath%\LavishScript Modules\%TARGETFILENAME%"
+	echo PostBuild: Copying mysql-connector-c-6.1.3-win32/lib/libmysql.dll to "%InnerSpacePath%\libmysql.dll"
+	copy /Y "mysql-connector-c-6.1.3-win32\lib\libmysql.dll" "%InnerSpacePath%\libmysql.dll"
 
 :COPY_CHANGELOG
 	echo PostBuild: Copying %CHANGELOG% to "%InnerSpacePath%\LavishScript Modules\%CHANGELOG%"
