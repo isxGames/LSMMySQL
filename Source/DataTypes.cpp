@@ -6,6 +6,9 @@
 #define pMySQL ((MYSQL*)ObjectData.Ptr)
 bool LSMySQLType::GetMember(LSOBJECTDATA ObjectData, PLSTYPEMEMBER pMember, int argc, char *argv[], LSOBJECT &Object)
 {
+  UNREFERENCED_PARAMETER( argc );
+  UNREFERENCED_PARAMETER( argv );
+
 	if (!pMySQL)
 		return false;
 	switch(pMember->ID)
